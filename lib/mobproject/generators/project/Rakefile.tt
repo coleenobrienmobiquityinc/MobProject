@@ -30,6 +30,33 @@ task :web, [:tag, :browser] do |t, args|
   Rake::Task[:cucumber_web].invoke
 end
 
+task :sauce_web, [:tag, :emulator] do |t, args|
+  Cucumber::Rake::Task.new :cucumber_sauce_web do |t|
+    test_device_name = args[:emulator].to_s.gsub('emulator:', '').strip
+    device_info = sauce_web_emulator_from_yml(test_device_name)
+    if device_info.nil? then
+       puts "Incorrect emulator #{test_device_name} selected, please select a platform from features/support/web/platform/inventory/sauce.yml"
+       exit 1
+    end
+
+    ENV['BROWSER'] = device_info['browser']
+    ENV['OS'] = device_info['os']
+    ENV['VERSION'] = device_info['version']
+    ENV['RESOLUTION'] = device_info['resolution']
+
+    tag = args[:tag]
+    t.profile = 'sauce_web'
+
+    if tag.nil?
+      t.cucumber_opts = html_report_flag("Web_#{sauce_browser}")
+    else
+      t.cucumber_opts = "--tags @#{tag.gsub('@', '')} #{html_report_flag("Web_#IE")}"
+    end
+  end
+
+  Rake::Task[:cucumber_sauce_web].invoke
+end
+
 task :android_avd, [:tag, :avd] do |t, args|
   Cucumber::Rake::Task.new :cucumber_android_avd do |t|
     ENV['DEVICE'] = args[:avd].to_s.gsub('avd:', '').strip
@@ -198,6 +225,13 @@ def android_device_from_yml(name)
   require 'yaml'
 
   YAML.load_file(Dir.pwd + '/features/support/mobile/platform/android/inventory/devices.yml')[name]
+end
+
+def sauce_web_emulator_from_yml(name)
+  require 'yaml'
+
+  emulators = YAML.load_file(Dir.pwd + '/features/support/web/platform/inventory/sauce.yml')
+  emulators[name]
 end
 
 def path_to_results_folder

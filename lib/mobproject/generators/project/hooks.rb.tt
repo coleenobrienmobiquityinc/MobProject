@@ -19,7 +19,8 @@ After do |scenario|
     # TODO: close_all_windows_except_main(@driver) if ENV['PLATFORM'] == 'web'
   end
 
-  @driver.reset unless ENV['TARGET'] == 'web'
+
+  @driver.reset unless ENV['PLATFORM'] == 'web'
 end
 
 at_exit do
@@ -37,8 +38,13 @@ at_exit do
       ENV['SAUCE_USERNAME'] = %x[echo $SAUCE_USER].strip
       ENV['SAUCE_ACCESS_KEY'] = %x[echo $SAUCE_KEY].strip
 
-      SauceWhisk::Jobs.change_status $driver.driver.session_id, bool_status
+      SauceWhisk::Jobs.change_status driver.session_id, bool_status
+      puts "Sauce session was #{driver.session_id}"
       driver.quit
     end
   end
+
+
+
+
 end

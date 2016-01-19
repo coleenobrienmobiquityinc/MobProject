@@ -12,4 +12,6 @@ ios_simulator: --no-source --color --format pretty PLATFORM=ios IOS_PHONE=simula
 
 sauce_ios_simulator: --no-source --color --format pretty PLATFORM=ios IOS_PHONE=simulator TARGET=sauce --tags ~@ignore --tags ~@wip --tags ~ios_quarantine
 
+sauce_web: --no-source --color --format pretty PLATFORM=web TARGET=sauce --tags ~@ignore --tags ~@wip 
+
 web: --no-source --color --format pretty PLATFORM=web TARGET=web --tags ~@ignore --tags ~@wip

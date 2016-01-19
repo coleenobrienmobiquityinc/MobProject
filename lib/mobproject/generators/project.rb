@@ -49,6 +49,11 @@ module MobProject
         empty_directory("#{name}/features/support/mobile/platform/ios")
         empty_directory("#{name}/features/support/mobile/platform/ios/inventory")
         empty_directory("#{name}/features/support/settings")
+
+	empty_directory("#{name}/features/support/web/")
+	empty_directory("#{name}/features/support/web/platform")
+	empty_directory("#{name}/features/support/web/platform/inventory")
+
       end
 
       def copy_env
@@ -95,6 +100,7 @@ module MobProject
         template 'ios_devices.yml.tt', "#{name}/features/support/mobile/platform/ios/inventory/devices.yml"
         template 'ios_simulators.yml.tt', "#{name}/features/support/mobile/platform/ios/inventory/simulators.yml"
         template 'ios_sauce.yml.tt', "#{name}/features/support/mobile/platform/ios/inventory/sauce.yml"
+        template 'web_sauce.yml.tt', "#{name}/features/support/web/platform/inventory/sauce.yml"
       end
 
       def copy_login
