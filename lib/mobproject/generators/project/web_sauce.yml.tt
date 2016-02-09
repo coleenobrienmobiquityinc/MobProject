@@ -1,17 +1,17 @@
 ie11_8.1:
-  browser: 'ie11'
+  browser: 'internet explorer'
   os: 'Windows 8.1'
   version: '11.0'
   resolution: '1280x1024'
 
 ie11_7.0:
-  browser: 'ie11'
+  browser: 'internet explorer'
   version: '11.0'
   os: 'Windows 7'
   resolution: '1600x1200'
 
 ie11_10:
-  browser: 'ie11'
+  browser: 'internet explorer'
   version: '11.0'
   os: 'Windows 10'
   resolution: '1280x1024'
@@ -50,17 +50,20 @@ chrome47_win10:
 ipad2_9.2:
   browser: 'ios_safari'
   version: '9.2'
-  os: 'iPad 2'
+  os: 'OS X 10.10'
+  deviceName: 'iPad 2'
   resolution: ''
 
 iphone6_9.2:
   browser: 'ios_safari'
   version: '9.2'
-  os: 'iPhone 6'
+  os: 'OS X 10.10'
+  deviceName: 'iPhone 6'
   resolution: ''
 
 galaxyS4_4.4:
   browser: 'android'
   version: '4.4'
-  os: 'Samsung Galaxy S4 Emulator'
+  deviceName: 'Samsung Galaxy S4 Emulator'
   resolution: ''
+

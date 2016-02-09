@@ -43,14 +43,15 @@ task :sauce_web, [:tag, :emulator] do |t, args|
     ENV['OS'] = device_info['os']
     ENV['VERSION'] = device_info['version']
     ENV['RESOLUTION'] = device_info['resolution']
+    ENV['DEVICE'] = device_info['deviceName']
 
     tag = args[:tag]
     t.profile = 'sauce_web'
 
     if tag.nil?
-      t.cucumber_opts = html_report_flag("Web_#{sauce_browser}")
+      t.cucumber_opts = html_report_flag("Web_#{test_device_name}")
     else
-      t.cucumber_opts = "--tags @#{tag.gsub('@', '')} #{html_report_flag("Web_#IE")}"
+      t.cucumber_opts = "--tags @#{tag.gsub('@', '')} #{html_report_flag("Web_#{test_device_name}")}"
     end
   end
 

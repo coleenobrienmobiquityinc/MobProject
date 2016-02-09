@@ -142,73 +142,23 @@ module Platform
     def sauce_browser_capabilities
       sauce_user = %x[echo $SAUCE_USER].strip
       sauce_key = %x[echo $SAUCE_KEY].strip
+      deviceString = ''
 
+	 capabilities =       {
 
-      case (ENV['BROWSER'])
-        when "ie11" then
-          sauce_ie11_capabilities
-        when "Chrome" then
-          sauce_chrome_capabilities
-        when 'ios_safari' then
-          sauce_ios_capabilities
-        when 'MicrosoftEdge' then
-          sauce_edge_capabilities
-	when 'android' then 
-	  sauce_android_browser_capabilities
-        else 
-	     abort("Browser #{ENV['BROWSER']} not in list of legit browsers - please check code")
-      end
-    end
-
-    def sauce_ie11_capabilities
-
-      {
-          browserName: 'internet explorer',
-          platform: ENV['OS'],
-          screenResolution: ENV['RESOLUTION'],
-          version: '11.0'
-      }
-
-
-    end
-
-    def sauce_edge_capabilities
-
-      {
-          browserName: 'MicrosoftEdge',
-          platform: ENV['OS'],
-          screenResolution: ENV['RESOLUTION'],
-          version: ENV['VERSION']
-      }
-
-    end
-
-    def sauce_chrome_capabilities
-
-
-      {
-
-          browserName: 'Chrome',
+          browserName: ENV['BROWSER'],
           platform: ENV['OS'],
           version: ENV['VERSION'],
-          screenResolution: ENV['RESOLUTION']}
+          screenResolution: ENV['RESOLUTION']
+	  }
 
 
-    end
+	 capabilities = capabilities.merge(deviceName: ENV['DEVICE']) 
 
-
-    def sauce_ios_capabilities
-
-      {
-          appiumVersion: '1.4.16',
-          browserName: 'Safari',
-          platform: 'OS X 10.10',
-          version: ENV['VERSION'],
-          deviceName: ENV['OS']
-      }
-
+	 capabilities
 
     end
+
 
     def start_selenium_driver
       self.send("setup_#{ENV['PLATFORM']}")
